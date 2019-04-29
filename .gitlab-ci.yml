@@ -1,0 +1,33 @@
+# GitLab CI-configuration for SonarQube analysis
+
+# The course staff will update this file, but you can also add your own unit tests here.
+
+image: pervasivetut/sonar-scanner:alpine
+
+stages:
+  - analysis
+
+.analysis_template: &analysis_definition
+  stage: analysis
+  script:
+    - cd $PROJECT_FOLDER
+    - sonar-scanner -Dsonar.host.url=$SONARQUBE_URL -Dsonar.login=$SONARQUBE_TOKEN -Dsonar.projectKey=$SONAR_PROJECT_KEY -Dsonar.gitlab.commit_sha=$CI_COMMIT_SHA -Dsonar.gitlab.ref_name=$CI_COMMIT_REF_NAME -Dsonar.gitlab.project_id=$CI_PROJECT_ID
+  when: always
+
+# Performs the analysis and sends results to SonarQube
+AnalyzeChangeDistiller:
+  variables:
+    SONAR_PROJECT_KEY: $CI_PROJECT_PATH_SLUG-change-distiller
+    PROJECT_FOLDER: change-distiller
+  <<: *analysis_definition
+
+AnalyzeRefactoringMiner:
+  variables:
+    SONAR_PROJECT_KEY: $CI_PROJECT_PATH_SLUG-refactoring-miner
+    PROJECT_FOLDER: refactoring-miner
+  <<: *analysis_definition
+AnalyzeSZZUnleashed:
+  variables:
+    SONAR_PROJECT_KEY: $CI_PROJECT_PATH_SLUG-szz-unleashed
+    PROJECT_FOLDER: ssz-unleashed
+  <<: *analysis_definition

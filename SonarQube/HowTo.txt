@@ -1,0 +1,19 @@
+Sonarqube Dashboard can be found here: https://course-sonar.rd.tut.fi/projects
+
+Grab Issues via API:
+--> Execute in Browser, save result to $PROJECTNAME$_2.json
+https://course-sonar.rd.tut.fi/api/issues/search?componentRoots=sweng-2019-2-refactoring-miner&statuses=OPEN
+https://course-sonar.rd.tut.fi/api/issues/search?componentRoots=sweng-2019-2-szz-unleashed&statuses=OPEN
+https://course-sonar.rd.tut.fi/api/issues/search?componentRoots=sweng-2019-2-change-distiller&statuses=OPEN
+--> since our projects did not have too many issues, we never had more than one page, so crabbing the results like this is enough
+
+--> Execute json_to_csv.py save result to $PROJECTNAME$_2.csv (result should look as in the *_web.csv files that were created using a online converter)
+--> Example:
+python json_to_csv.py issues $PROJECTNAME$_2.json $PROJECTNAME$_2.csv
+
+C:/Users/danie/OneDrive - TUNI.fi/SWEngMeth/Project/2/SonarQube/
+
+--> Add columns as instructed in moodle
+
+--> fix issues, report time
+--> Our group had many issues that were similar to each other because we used the same REST API framework for the first two sprints. So fixing the issue once was enough, then I only had to apply the same to the other projects, which results in low time for some issues.
